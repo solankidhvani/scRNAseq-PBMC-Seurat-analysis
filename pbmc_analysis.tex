@@ -1,0 +1,732 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={scRNA-seq Analysis of PBMC 3k Dataset},
+  pdfauthor={Dhvani Solanki},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{scRNA-seq Analysis of PBMC 3k Dataset}
+\author{Dhvani Solanki}
+\date{2026-04-16}
+
+\begin{document}
+\maketitle
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+title: ``scRNA-seq Analysis of PBMC 3k Dataset'' author: ``Dhwanit''
+date: ``2026-04-16'' output: html\_document ---------------------
+
+\subsection{Overview}\label{overview}
+
+This project performs an end-to-end single-cell RNA-seq analysis of the
+PBMC 3k dataset using Seurat. The workflow includes quality control,
+normalization, dimensionality reduction, clustering, marker
+identification, and cell type annotation.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{1. Load Libraries}\label{load-libraries}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(Seurat)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: SeuratObject
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: sp
+\end{verbatim}
+
+\begin{verbatim}
+## 'SeuratObject' was built under R 4.5.2 but the current version is
+## 4.5.3; it is recomended that you reinstall 'SeuratObject' as the ABI
+## for R may have changed
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'SeuratObject'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     intersect, t
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## -- Attaching core tidyverse packages ------------------------ tidyverse 2.0.0 --
+## v dplyr     1.1.4     v readr     2.1.5
+## v forcats   1.0.0     v stringr   1.5.1
+## v ggplot2   4.0.2     v tibble    3.2.1
+## v lubridate 1.9.4     v tidyr     1.3.1
+## v purrr     1.0.4
+\end{verbatim}
+
+\begin{verbatim}
+## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+## i Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(cowplot)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'cowplot'
+## 
+## The following object is masked from 'package:lubridate':
+## 
+##     stamp
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{2. Load Data}\label{load-data}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pbmc.data }\OtherTok{\textless{}{-}} \FunctionTok{Read10X}\NormalTok{(}\AttributeTok{data.dir =} \StringTok{"data/filtered\_gene\_bc\_matrices/hg19/"}\NormalTok{)}
+
+\NormalTok{pbmc }\OtherTok{\textless{}{-}} \FunctionTok{CreateSeuratObject}\NormalTok{(}\AttributeTok{counts =}\NormalTok{ pbmc.data,}
+                           \AttributeTok{project =} \StringTok{"pbmc3k"}\NormalTok{,}
+                           \AttributeTok{min.cells =} \DecValTok{3}\NormalTok{,}
+                           \AttributeTok{min.features =} \DecValTok{200}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Feature names cannot have underscores ('_'), replacing with dashes
+## ('-')
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pbmc}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## An object of class Seurat 
+## 13714 features across 2700 samples within 1 assay 
+## Active assay: RNA (13714 features, 0 variable features)
+##  1 layer present: counts
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{3. Quality Control (QC)}\label{quality-control-qc}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pbmc[[}\StringTok{"percent.mt"}\NormalTok{]] }\OtherTok{\textless{}{-}} \FunctionTok{PercentageFeatureSet}\NormalTok{(pbmc, }\AttributeTok{pattern =} \StringTok{"\^{}MT{-}"}\NormalTok{)}
+
+\FunctionTok{VlnPlot}\NormalTok{(pbmc, }\AttributeTok{features =} \FunctionTok{c}\NormalTok{(}\StringTok{"nFeature\_RNA"}\NormalTok{, }\StringTok{"nCount\_RNA"}\NormalTok{, }\StringTok{"percent.mt"}\NormalTok{), }\AttributeTok{ncol =} \DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Default search for "data" layer in "RNA" assay yielded no results;
+## utilizing "counts" layer instead.
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{pbmc_analysis_files/pbmc_analysis_files/figure-latex/unnamed-chunk-3-1.pdf}}
+
+\subsubsection{Filter low-quality cells}\label{filter-low-quality-cells}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pbmc }\OtherTok{\textless{}{-}} \FunctionTok{subset}\NormalTok{(pbmc, }\AttributeTok{subset =}\NormalTok{ nFeature\_RNA }\SpecialCharTok{\textgreater{}} \DecValTok{200} \SpecialCharTok{\&} 
+\NormalTok{                              nFeature\_RNA }\SpecialCharTok{\textless{}} \DecValTok{2500} \SpecialCharTok{\&} 
+\NormalTok{                              percent.mt }\SpecialCharTok{\textless{}} \DecValTok{5}\NormalTok{)}
+
+\NormalTok{pbmc}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## An object of class Seurat 
+## 13714 features across 2638 samples within 1 assay 
+## Active assay: RNA (13714 features, 0 variable features)
+##  1 layer present: counts
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{4. Normalization and Feature
+Selection}\label{normalization-and-feature-selection}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pbmc }\OtherTok{\textless{}{-}} \FunctionTok{NormalizeData}\NormalTok{(pbmc)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Normalizing layer: counts
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pbmc }\OtherTok{\textless{}{-}} \FunctionTok{FindVariableFeatures}\NormalTok{(pbmc, }\AttributeTok{selection.method =} \StringTok{"vst"}\NormalTok{, }\AttributeTok{nfeatures =} \DecValTok{1500}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Finding variable features for layer counts
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{5. Scaling and PCA}\label{scaling-and-pca}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pbmc }\OtherTok{\textless{}{-}} \FunctionTok{ScaleData}\NormalTok{(pbmc)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Centering and scaling data matrix
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pbmc }\OtherTok{\textless{}{-}} \FunctionTok{RunPCA}\NormalTok{(pbmc)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## PC_ 1 
+## Positive:  CST3, TYROBP, LST1, AIF1, FTL, FTH1, LYZ, FCN1, S100A9, TYMP 
+##     FCER1G, CFD, LGALS1, S100A8, LGALS2, CTSS, SERPINA1, IFITM3, CFP, PSAP 
+##     SAT1, IFI30, S100A11, COTL1, NPC2, LGALS3, GSTP1, PYCARD, NCF2, CDA 
+## Negative:  LTB, CD2, ACAP1, STK17A, CTSW, GIMAP5, AQP3, CCL5, GZMA, CST7 
+##     MAL, ITM2A, HOPX, LDLRAP1, GZMK, ZAP70, ETS1, TNFAIP8, RIC3, SAMD3 
+##     LYAR, KLRG1, RORA, NKG7, TRABD2A, PRF1, FAM107B, CCND3, CD79A, SRSF7 
+## PC_ 2 
+## Positive:  CD79A, MS4A1, TCL1A, HLA-DQA1, HLA-DQB1, HLA-DRA, LINC00926, CD79B, CD74, HLA-DRB1 
+##     HLA-DPB1, HLA-DMA, HLA-DRB5, HLA-DPA1, LTB, FCRLA, HVCN1, BLNK, P2RX5, IRF8 
+##     IGLL5, ARHGAP24, SMIM14, PPP1R14A, C16orf74, MZB1, RP11-428G5.5, RP5-887A10.1, IL4R, BTK 
+## Negative:  NKG7, PRF1, CST7, GZMA, GZMB, FGFBP2, CTSW, GNLY, SPON2, GZMH 
+##     CCL4, CCL5, FCGR3A, CLIC3, XCL2, HOPX, SRGN, TTC38, S100A4, IGFBP7 
+##     ID2, ANXA1, ACTB, SAMD3, APOBEC3G, KLRG1, PTGDR, ABI3, LYAR, IFITM2 
+## PC_ 3 
+## Positive:  HLA-DPA1, HLA-DPB1, HLA-DQA1, HLA-DQB1, CD79A, CD79B, CD74, HLA-DRB1, MS4A1, HLA-DRB5 
+##     HLA-DRA, TCL1A, LINC00926, HLA-DMA, HVCN1, IRF8, FCRLA, SMIM14, BLNK, LAT2 
+##     P2RX5, IGLL5, ARHGAP24, RBM3, CSNK2B, IFITM2, CD1C, UBE2L6, APOBEC3G, LTB 
+## Negative:  PPBP, PF4, SDPR, SPARC, GNG11, NRGN, GP9, HIST1H2AC, RGS18, TUBB1 
+##     CLU, AP001189.4, ITGA2B, CD9, PTCRA, TMEM40, CA2, ACRBP, MMD, TREML1 
+##     SEPT5, RUFY1, TSC22D1, MYL9, MPP1, CMTM5, RP11-367G6.3, LY6G6F, GP1BA, NGFRAP1 
+## PC_ 4 
+## Positive:  HLA-DQA1, CD79B, CD79A, HLA-DQB1, CD74, MS4A1, HLA-DPB1, HLA-DPA1, HLA-DRB1, HLA-DRA 
+##     TCL1A, HLA-DRB5, LINC00926, HLA-DMA, HVCN1, GZMB, FCRLA, FGFBP2, IRF8, BLNK 
+##     FCGR3A, PRF1, NKG7, IGLL5, P2RX5, GNLY, SMIM14, CST7, LAT2, SPON2 
+## Negative:  S100A6, S100A8, S100A4, FYB, MAL, AQP3, S100A9, TMSB4X, CD2, GIMAP4 
+##     RBP7, LGALS2, ANXA1, GIMAP5, S100A12, TRABD2A, FCN1, LYZ, FOLR3, MS4A6A 
+##     LDLRAP1, S100A11, AIF1, IL8, PASK, ITM2A, CORO1B, ATP5H, ASGR1, RETN 
+## PC_ 5 
+## Positive:  LTB, CKB, MS4A7, AQP3, PTGES3, HN1, CORO1B, LILRB2, CD2, GDI2 
+##     IFITM2, MAL, ANXA5, ABRACL, CTD-2006K23.1, WARS, PPA1, ATP5C1, VMO1, NAAA 
+##     HSP90AA1, FYB, GIMAP4, ARL6IP5, ADA, COTL1, GPR183, PPM1N, ITM2A, TIMP1 
+## Negative:  S100A8, GZMB, NKG7, FGFBP2, CCL4, GNLY, CST7, PRF1, GZMA, S100A9 
+##     LGALS2, SPON2, GZMH, CCL3, S100A12, RBP7, CTSW, MS4A6A, CCL5, CLIC3 
+##     FOLR3, XCL2, GSTP1, TYROBP, TTC38, IGFBP7, ASGR1, CD160, HOPX, LYZ
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ElbowPlot}\NormalTok{(pbmc)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{pbmc_analysis_files/pbmc_analysis_files/figure-latex/unnamed-chunk-6-1.pdf}}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{6. Clustering}\label{clustering}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pbmc }\OtherTok{\textless{}{-}} \FunctionTok{FindNeighbors}\NormalTok{(pbmc, }\AttributeTok{dims =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{8}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Computing nearest neighbor graph
+\end{verbatim}
+
+\begin{verbatim}
+## Computing SNN
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pbmc }\OtherTok{\textless{}{-}} \FunctionTok{FindClusters}\NormalTok{(pbmc, }\AttributeTok{resolution =} \FloatTok{0.5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+## 
+## Number of nodes: 2638
+## Number of edges: 91917
+## 
+## Running Louvain algorithm...
+## Maximum modularity in 10 random starts: 0.8743
+## Number of communities: 9
+## Elapsed time: 0 seconds
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{7. UMAP Visualization}\label{umap-visualization}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pbmc }\OtherTok{\textless{}{-}} \FunctionTok{RunUMAP}\NormalTok{(pbmc, }\AttributeTok{dims =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{8}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: The default method for RunUMAP has changed from calling Python UMAP via reticulate to the R-native UWOT using the cosine metric
+## To use Python UMAP via reticulate, set umap.method to 'umap-learn' and metric to 'correlation'
+## This message will be shown once per session
+\end{verbatim}
+
+\begin{verbatim}
+## 17:13:01 UMAP embedding parameters a = 0.9922 b = 1.112
+\end{verbatim}
+
+\begin{verbatim}
+## 17:13:01 Read 2638 rows and found 8 numeric columns
+\end{verbatim}
+
+\begin{verbatim}
+## 17:13:01 Using Annoy for neighbor search, n_neighbors = 30
+\end{verbatim}
+
+\begin{verbatim}
+## 17:13:01 Building Annoy index with metric = cosine, n_trees = 50
+\end{verbatim}
+
+\begin{verbatim}
+## 0%   10   20   30   40   50   60   70   80   90   100%
+\end{verbatim}
+
+\begin{verbatim}
+## [----|----|----|----|----|----|----|----|----|----|
+\end{verbatim}
+
+\begin{verbatim}
+## **************************************************|
+## 17:13:02 Writing NN index file to temp file /var/folders/1v/6vsfq_rj6pj4q1dvdljkhtdr0000gn/T//Rtmp4u46JM/file970351a5d855
+## 17:13:02 Searching Annoy index using 1 thread, search_k = 3000
+## 17:13:03 Annoy recall = 100%
+## 17:13:03 Commencing smooth kNN distance calibration using 1 thread with target n_neighbors = 30
+## 17:13:03 Initializing from normalized Laplacian + noise (using RSpectra)
+## 17:13:04 Commencing optimization for 500 epochs, with 104232 positive edges
+## 17:13:04 Using rng type: pcg
+## 17:13:07 Optimization finished
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{DimPlot}\NormalTok{(pbmc, }\AttributeTok{reduction =} \StringTok{"umap"}\NormalTok{, }\AttributeTok{label =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{pbmc_analysis_files/pbmc_analysis_files/figure-latex/unnamed-chunk-8-1.pdf}}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{8. Marker Gene
+Identification}\label{marker-gene-identification}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pbmc.markers }\OtherTok{\textless{}{-}} \FunctionTok{FindAllMarkers}\NormalTok{(pbmc, }\AttributeTok{only.pos =} \ConstantTok{TRUE}\NormalTok{,}
+                               \AttributeTok{min.pct =} \FloatTok{0.3}\NormalTok{,}
+                               \AttributeTok{logfc.threshold =} \FloatTok{0.3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Calculating cluster 0
+\end{verbatim}
+
+\begin{verbatim}
+## For a (much!) faster implementation of the Wilcoxon Rank Sum Test,
+## (default method for FindMarkers) please install the presto package
+## --------------------------------------------
+## install.packages('devtools')
+## devtools::install_github('immunogenomics/presto')
+## --------------------------------------------
+## After installation of presto, Seurat will automatically use the more 
+## efficient implementation (no further action necessary).
+## This message will be shown once per session
+\end{verbatim}
+
+\begin{verbatim}
+## Calculating cluster 1
+\end{verbatim}
+
+\begin{verbatim}
+## Calculating cluster 2
+\end{verbatim}
+
+\begin{verbatim}
+## Calculating cluster 3
+\end{verbatim}
+
+\begin{verbatim}
+## Calculating cluster 4
+\end{verbatim}
+
+\begin{verbatim}
+## Calculating cluster 5
+\end{verbatim}
+
+\begin{verbatim}
+## Calculating cluster 6
+\end{verbatim}
+
+\begin{verbatim}
+## Calculating cluster 7
+\end{verbatim}
+
+\begin{verbatim}
+## Calculating cluster 8
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(pbmc.markers)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##               p_val avg_log2FC pct.1 pct.2     p_val_adj cluster  gene
+## RPS12 4.995816e-167  0.7782779 1.000 0.991 6.851262e-163       0 RPS12
+## RPS6  2.450492e-154  0.6962518 1.000 0.995 3.360605e-150       0  RPS6
+## RPS27 2.076456e-151  0.7396658 0.999 0.991 2.847652e-147       0 RPS27
+## RPS25 2.801125e-148  0.8157974 0.999 0.973 3.841463e-144       0 RPS25
+## RPS14 7.001491e-145  0.6539509 1.000 0.994 9.601845e-141       0 RPS14
+## RPL32 3.487487e-143  0.6193642 0.999 0.995 4.782740e-139       0 RPL32
+\end{verbatim}
+
+\subsubsection{Top markers per cluster}\label{top-markers-per-cluster}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{top10 }\OtherTok{\textless{}{-}}\NormalTok{ pbmc.markers }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(cluster) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{top\_n}\NormalTok{(}\AttributeTok{n =} \DecValTok{10}\NormalTok{, }\AttributeTok{wt =}\NormalTok{ avg\_log2FC)}
+
+\NormalTok{top10}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 90 x 7
+## # Groups:   cluster [9]
+##        p_val avg_log2FC pct.1 pct.2 p_val_adj cluster gene     
+##        <dbl>      <dbl> <dbl> <dbl>     <dbl> <fct>   <chr>    
+##  1 6.26e-131       1.26 0.906 0.572 8.59e-127 0       LDHB     
+##  2 3.31e-102       1.20 0.858 0.37  4.54e- 98 0       CD3D     
+##  3 4.25e- 79       2.35 0.409 0.102 5.83e- 75 0       CCR7     
+##  4 8.22e- 64       1.37 0.638 0.336 1.13e- 59 0       NOSIP    
+##  5 1.24e- 52       2.16 0.33  0.097 1.70e- 48 0       PRKCQ-AS1
+##  6 3.59e- 47       2.03 0.317 0.098 4.93e- 43 0       LEF1     
+##  7 2.08e- 45       1.54 0.425 0.175 2.85e- 41 0       PIK3IP1  
+##  8 5.93e- 34       1.34 0.373 0.171 8.13e- 30 0       TCF7     
+##  9 4.39e- 28       1.21 0.362 0.172 6.03e- 24 0       RGCC     
+## 10 7.78e- 25       1.20 0.429 0.245 1.07e- 20 0       C12orf57 
+## # i 80 more rows
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{9. Heatmap of Marker Genes}\label{heatmap-of-marker-genes}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{DoHeatmap}\NormalTok{(pbmc, }\AttributeTok{features =}\NormalTok{ top10}\SpecialCharTok{$}\NormalTok{gene) }\SpecialCharTok{+} \FunctionTok{NoLegend}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in DoHeatmap(pbmc, features = top10$gene): The following features were
+## omitted as they were not found in the scale.data layer for the RNA assay:
+## NDRG2, PLD4, BASP1, PRSS23, AKR1C3, TPPP3, MS4A4A, HMOX1, CTSL, LILRA3, HES4,
+## CDKN1C, RP11-290F20.3, CD8A, TSPAN13, BANK1, FCER2, VPREB3, SUSD3, TTC39C,
+## TRADD, SPOCK2, TRAT1, CD40LG, BST1, CD14, C12orf57, RGCC, TCF7, PIK3IP1, LEF1,
+## PRKCQ-AS1, NOSIP, CCR7, CD3D, LDHB
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{pbmc_analysis_files/pbmc_analysis_files/figure-latex/unnamed-chunk-11-1.pdf}}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{10. Cell Type Annotation}\label{cell-type-annotation}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{new.cluster.ids }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Naive CD4 T"}\NormalTok{, }\StringTok{"CD14+ Mono"}\NormalTok{, }\StringTok{"Memory CD4 T"}\NormalTok{,}
+                     \StringTok{"B"}\NormalTok{, }\StringTok{"CD8 T"}\NormalTok{, }\StringTok{"FCGR3A+ Mono"}\NormalTok{, }\StringTok{"NK"}\NormalTok{, }\StringTok{"DC"}\NormalTok{, }\StringTok{"Platelet"}\NormalTok{)}
+
+\FunctionTok{names}\NormalTok{(new.cluster.ids) }\OtherTok{\textless{}{-}} \FunctionTok{levels}\NormalTok{(pbmc)}
+
+\NormalTok{pbmc }\OtherTok{\textless{}{-}} \FunctionTok{RenameIdents}\NormalTok{(pbmc, new.cluster.ids)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{UMAP with cell type
+labels}\label{umap-with-cell-type-labels}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{DimPlot}\NormalTok{(pbmc, }\AttributeTok{reduction =} \StringTok{"umap"}\NormalTok{, }\AttributeTok{label =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{pt.size =} \FloatTok{0.5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{pbmc_analysis_files/pbmc_analysis_files/figure-latex/unnamed-chunk-13-1.pdf}}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{11. Differential Expression
+Analysis}\label{differential-expression-analysis}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mono.de }\OtherTok{\textless{}{-}} \FunctionTok{FindMarkers}\NormalTok{(pbmc, }\AttributeTok{ident.1 =} \StringTok{"CD14+ Mono"}\NormalTok{, }\AttributeTok{min.pct =} \FloatTok{0.25}\NormalTok{)}
+
+\FunctionTok{head}\NormalTok{(mono.de, }\DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                p_val avg_log2FC pct.1 pct.2     p_val_adj
+## S100A8  0.000000e+00   6.338298 0.984 0.137  0.000000e+00
+## LGALS2  0.000000e+00   4.999301 0.899 0.079  0.000000e+00
+## S100A9 1.196360e-312   5.835831 0.995 0.232 1.640688e-308
+## FCN1   9.511239e-284   3.662344 0.952 0.167 1.304371e-279
+## CD14   1.204764e-268   5.173508 0.671 0.040 1.652213e-264
+## TYROBP 1.079389e-254   3.092964 0.993 0.280 1.480274e-250
+## MS4A6A 3.374271e-251   4.895105 0.687 0.054 4.627476e-247
+## LYZ    2.299040e-241   4.292017 1.000 0.527 3.152904e-237
+## CST3   5.613179e-234   2.898334 0.991 0.281 7.697914e-230
+## TYMP   1.033394e-206   2.865588 0.910 0.238 1.417197e-202
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{12. Key Findings}\label{key-findings}
+
+\begin{itemize}
+\tightlist
+\item
+  \textasciitilde2600 cells retained after quality control filtering
+\item
+  9 distinct immune cell populations identified
+\item
+  Clear separation of clusters in UMAP space
+\item
+  Marker genes align with known PBMC biology
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{13. Session Info}\label{session-info}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sessionInfo}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## R version 4.5.3 (2026-03-11)
+## Platform: x86_64-apple-darwin20
+## Running under: macOS Sequoia 15.7.4
+## 
+## Matrix products: default
+## BLAS:   /Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/lib/libRblas.0.dylib 
+## LAPACK: /Library/Frameworks/R.framework/Versions/4.5-x86_64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.1
+## 
+## locale:
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## 
+## time zone: America/Toronto
+## tzcode source: internal
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+##  [1] future_1.70.0      cowplot_1.2.0      lubridate_1.9.4    forcats_1.0.0     
+##  [5] stringr_1.5.1      dplyr_1.1.4        purrr_1.0.4        readr_2.1.5       
+##  [9] tidyr_1.3.1        tibble_3.2.1       ggplot2_4.0.2      tidyverse_2.0.0   
+## [13] Seurat_5.4.0       SeuratObject_5.4.0 sp_2.2-1          
+## 
+## loaded via a namespace (and not attached):
+##   [1] deldir_2.0-4           pbapply_1.7-4          gridExtra_2.3         
+##   [4] rlang_1.1.6            magrittr_2.0.3         RcppAnnoy_0.0.23      
+##   [7] spatstat.geom_3.7-3    matrixStats_1.5.0      ggridges_0.5.7        
+##  [10] compiler_4.5.3         png_0.1-9              vctrs_0.6.5           
+##  [13] reshape2_1.4.5         pkgconfig_2.0.3        fastmap_1.2.0         
+##  [16] labeling_0.4.3         utf8_1.2.4             promises_1.3.3        
+##  [19] rmarkdown_2.31         tzdb_0.5.0             xfun_0.52             
+##  [22] jsonlite_2.0.0         goftest_1.2-3          later_1.4.2           
+##  [25] spatstat.utils_3.2-2   irlba_2.3.7            parallel_4.5.3        
+##  [28] cluster_2.1.8.2        R6_2.6.1               ica_1.0-3             
+##  [31] stringi_1.8.7          RColorBrewer_1.1-3     spatstat.data_3.1-9   
+##  [34] reticulate_1.46.0      parallelly_1.46.1      spatstat.univar_3.1-7 
+##  [37] lmtest_0.9-40          scattermore_1.2        Rcpp_1.1.0            
+##  [40] knitr_1.50             tensor_1.5.1           future.apply_1.20.2   
+##  [43] zoo_1.8-15             R.utils_2.13.0         sctransform_0.4.3     
+##  [46] timechange_0.3.0       httpuv_1.6.16          Matrix_1.7-4          
+##  [49] splines_4.5.3          igraph_2.2.3           tidyselect_1.2.1      
+##  [52] rstudioapi_0.17.1      abind_1.4-8            yaml_2.3.10           
+##  [55] spatstat.random_3.4-5  codetools_0.2-20       miniUI_0.1.2          
+##  [58] spatstat.explore_3.8-0 listenv_0.10.1         lattice_0.22-9        
+##  [61] plyr_1.8.9             withr_3.0.2            shiny_1.11.1          
+##  [64] S7_0.2.1               ROCR_1.0-12            evaluate_1.0.3        
+##  [67] Rtsne_0.17             fastDummies_1.7.5      survival_3.8-6        
+##  [70] polyclip_1.10-7        fitdistrplus_1.2-6     pillar_1.10.2         
+##  [73] KernSmooth_2.23-26     plotly_4.12.0          generics_0.1.3        
+##  [76] RcppHNSW_0.6.0         hms_1.1.3              scales_1.4.0          
+##  [79] globals_0.19.1         xtable_1.8-4           glue_1.8.0            
+##  [82] lazyeval_0.2.3         tools_4.5.3            data.table_1.17.0     
+##  [85] RSpectra_0.16-2        RANN_2.6.2             dotCall64_1.2         
+##  [88] grid_4.5.3             nlme_3.1-168           patchwork_1.3.2       
+##  [91] cli_3.6.5              spatstat.sparse_3.1-0  spam_2.11-3           
+##  [94] viridisLite_0.4.2      uwot_0.2.4             gtable_0.3.6          
+##  [97] R.methodsS3_1.8.2      digest_0.6.37          progressr_0.19.0      
+## [100] ggrepel_0.9.8          htmlwidgets_1.6.4      farver_2.1.2          
+## [103] R.oo_1.27.1            htmltools_0.5.8.1      lifecycle_1.0.4       
+## [106] httr_1.4.7             mime_0.13              MASS_7.3-65
+\end{verbatim}
+
+\end{document}
